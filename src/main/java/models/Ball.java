@@ -9,6 +9,7 @@ public class Ball {
     private int x;
     private int y;
     private int radius;
+    private int mass;
     private int speedX;
     private int speedY;
     private boolean isHole;
@@ -23,6 +24,39 @@ public class Ball {
         this.speedX = speedX;
         this.speedY = speedY;
         this.isHole = isHole;
+    }
+
+    public double collidesX(){
+        //TODO: implementar
+        return 0;
+    }
+
+    public double collidesY(){
+        //TODO: implementar
+        return 0;
+    }
+
+    public double collides(Ball b) {
+        //TODO: implementar
+        return 0;
+    }
+
+    public void bounceX(){
+        //TODO: implementar
+        setSpeedX(-getSpeedX());
+    }
+
+    public void bounceY() {
+        //TODO: implementar
+        setSpeedY(-getSpeedY());
+    }
+
+    public void bounce(Ball b) {
+        //TODO: implementar
+    }
+
+    public int getCollisionCount() {
+        return collisions.size();
     }
 
     public int getX() {
@@ -79,5 +113,13 @@ public class Ball {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getMass() {
+        return mass;
+    }
+
+    public void setMass(int mass) {
+        this.mass = mass;
     }
 }

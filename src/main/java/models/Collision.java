@@ -24,6 +24,10 @@ public class Collision implements Comparable<Collision> {
         this.time = time;
     }
 
+    public boolean wasSuperveningEvent(){
+        return false;
+    }
+
     public Ball getBall1() {
         return ball1;
     }
