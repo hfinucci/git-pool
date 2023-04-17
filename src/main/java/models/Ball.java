@@ -19,13 +19,14 @@ public class Ball {
 //
 //    private Set<Collision> collisions = new TreeSet<>();
 
-    public Ball( double x, double y, double radius, double speedX, double speedY, boolean isHole) {
+    public Ball(double x, double y, double radius, double speedX, double speedY, int mass,  boolean isHole) {
         this.id = global_id++;
         this.x = x;
         this.y = y;
         this.radius = radius;
         this.speedX = speedX;
         this.speedY = speedY;
+        this.mass = mass;
         this.isHole = isHole;
     }
 
@@ -55,20 +56,24 @@ public class Ball {
         return MathUtils.timeToCollisionTwoParticles(this, b);
     }
 
-    public void bounceX(){
+    public void bounceX(double time){
         setSpeedX(-getSpeedX());
     }
 
-    public void bounceY() {
+    public void bounceY(double time) {
         setSpeedY(-getSpeedY());
     }
 
-    public void bounce(Ball b) {
-        setSpeedX(getSpeedX() + MathUtils.Jx(this, b)/this.getMass());
-        setSpeedY(getSpeedY() + MathUtils.Jy(this, b)/this.getMass());
+    public void bounce(Ball b, double time) {
+        double jx = MathUtils.Jx(this, b)/this.getMass();
+        double jy = MathUtils.Jy(this, b)/this.getMass();
 
-        b.setSpeedX(b.getSpeedX() - MathUtils.Jx(this, b)/b.getMass());
-        b.setSpeedY(b.getSpeedY() - MathUtils.Jy(this, b)/b.getMass());
+        setSpeedX(getSpeedX() + jx);
+        setSpeedY(getSpeedY() + jy);
+
+        b.setSpeedX(b.getSpeedX() - jx);
+        b.setSpeedY(b.getSpeedY() - jy);
+
     }
 
 //    public int getCollisionCount() {

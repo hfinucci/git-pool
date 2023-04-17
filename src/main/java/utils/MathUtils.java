@@ -4,7 +4,6 @@ import models.Ball;
 import models.Wall;
 
 public class MathUtils {
-    //TODO: estan todas mal, ignorarlas
 
     public static Tuple deltaR(Ball b1, Ball b2){
         return new Tuple(deltaX(b1.getX(), b2.getX()), deltaY(b1.getY(), b1.getY()));
@@ -17,20 +16,28 @@ public class MathUtils {
     public static double d(Ball b1, Ball b2){
         return Math.pow(deltaV(b1, b2).dot(deltaR(b1, b2)), 2)
                 - deltaV(b1, b2).dot(deltaV(b1, b2))
-                * (deltaR(b1, b2).dot(deltaR(b1, b2)) - Math.pow(b1.getRadius(), 2));
+                * (deltaR(b1, b2).dot(deltaR(b1, b2)) - Math.pow(2* b1.getRadius(), 2));
     }
 
     public static double J (Ball b1, Ball b2){
         return 2 * b1.getMass() * b2.getMass() * deltaV(b1, b2).dot(deltaR(b1, b2))
-                / ((b1.getMass() + b2.getMass())* b1.getRadius());
+                / ((b1.getMass() + b2.getMass())* 2 * b1.getRadius());
     }
 
     public static double Jx (Ball b1, Ball b2){
-        return J(b1, b2) * deltaX(b1.getX(), b2.getX()) / b1.getRadius();
+        return J(b1, b2) * deltaX(b1.getX(), b2.getX()) / (2 * b1.getRadius());
     }
 
     public static double Jy (Ball b1, Ball b2){
-        return J(b1, b2) * deltaY(b1.getY(), b2.getY()) / b1.getRadius();
+        return J(b1, b2) * deltaY(b1.getY(), b2.getY()) / (2 * b1.getRadius());
+    }
+
+    public static double newPositionX(Ball b, double time){
+        return b.getX() + b.getSpeedX() * time;
+    }
+
+    public static double newPositionY(Ball b, double time){
+        return b.getY() + b.getSpeedY() * time;
     }
 
     public static double timeToCollisionTwoParticles(Ball b1, Ball b2){
@@ -61,19 +68,19 @@ public class MathUtils {
         return d(b1, b2) >= 0 || deltaR(b1, b2).dot(deltaV(b1, b2)) < 0;
     }
     public static double deltaX(double x1, double x2){
-        return x1 - x2;
+        return x2 - x1;
     }
 
     public static double deltaY(double y1, double y2){
-        return y1 - y2;
+        return y2 - y1;
     }
 
     public static double deltaVx(double vx1, double vx2){
-        return vx1 - vx2;
+        return vx2 - vx1;
     }
 
     public static double deltaVy(double vy1, double vy2){
-        return vy1 - vy2;
+        return vy2 - vy1;
     }
 
     static class Tuple {
