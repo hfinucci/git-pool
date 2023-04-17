@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 public class Ball {
 
+    private static int global_id = 0;
     private int id;
     private double x;
     private double y;
@@ -18,8 +19,8 @@ public class Ball {
 //
 //    private Set<Collision> collisions = new TreeSet<>();
 
-    public Ball(int id, double x, double y, double radius, double speedX, double speedY, boolean isHole) {
-        this.id = id;
+    public Ball( double x, double y, double radius, double speedX, double speedY, boolean isHole) {
+        this.id = global_id++;
         this.x = x;
         this.y = y;
         this.radius = radius;
@@ -28,14 +29,14 @@ public class Ball {
         this.isHole = isHole;
     }
 
-    public Ball(int id, double x, double y, double radius) {
-        this.id = id;
+    public Ball(double x, double y, double radius, boolean isHole) {
+        this.id = global_id++;
         this.x = x;
         this.y = y;
         this.radius = radius;
         this.speedX = 0;
         this.speedY = 0;
-        this.isHole = false;
+        this.isHole = isHole();
     }
 
     public double collidesX(){
