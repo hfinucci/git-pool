@@ -1,20 +1,22 @@
 package models;
 
+import utils.MathUtils;
+
 import java.util.Set;
 import java.util.TreeSet;
 
 public class Ball {
 
     private int id;
-    private int x;
-    private int y;
-    private int radius;
+    private double x;
+    private double y;
+    private double radius;
     private int mass;
-    private int speedX;
-    private int speedY;
+    private double speedX;
+    private double speedY;
     private boolean isHole;
-
-    private Set<Collision> collisions = new TreeSet<>();
+//
+//    private Set<Collision> collisions = new TreeSet<>();
 
     public Ball(int id, int x, int y, int radius, int speedX, int speedY, boolean isHole) {
         this.id = id;
@@ -27,75 +29,78 @@ public class Ball {
     }
 
     public double collidesX(){
-        //TODO: implementar
-        return 0;
+        double timeLeft = MathUtils.timeToCollisionParticleWallVertical(this, Wall.LEFT);
+        double timeRight = MathUtils.timeToCollisionParticleWallVertical(this, Wall.RIGHT);
+        return timeLeft >= 0? timeLeft: timeRight >= 0? timeRight: -1;
     }
 
     public double collidesY(){
-        //TODO: implementar
-        return 0;
+        double timeTop = MathUtils.timeToCollisionParticleWallHorizontal(this, Wall.TOP);
+        double timeBottom = MathUtils.timeToCollisionParticleWallHorizontal(this, Wall.BOTTOM);
+        return timeTop >= 0? timeTop: timeBottom >= 0? timeBottom: -1;
     }
 
     public double collides(Ball b) {
-        //TODO: implementar
-        return 0;
+        return MathUtils.timeToCollisionTwoParticles(this, b);
     }
 
     public void bounceX(){
-        //TODO: implementar
         setSpeedX(-getSpeedX());
     }
 
     public void bounceY() {
-        //TODO: implementar
         setSpeedY(-getSpeedY());
     }
 
     public void bounce(Ball b) {
-        //TODO: implementar
+        setSpeedX(getSpeedX() + MathUtils.Jx(this, b)/this.getMass());
+        setSpeedY(getSpeedY() + MathUtils.Jy(this, b)/this.getMass());
+
+        b.setSpeedX(b.getSpeedX() - MathUtils.Jx(this, b)/b.getMass());
+        b.setSpeedY(b.getSpeedY() - MathUtils.Jy(this, b)/b.getMass());
     }
 
-    public int getCollisionCount() {
-        return collisions.size();
-    }
+//    public int getCollisionCount() {
+//        return collisions.size();
+//    }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
-    public int getRadius() {
+    public double getRadius() {
         return radius;
     }
 
-    public void setRadius(int radius) {
+    public void setRadius(double radius) {
         this.radius = radius;
     }
 
-    public int getSpeedX() {
+    public double getSpeedX() {
         return speedX;
     }
 
-    public void setSpeedX(int speedX) {
+    public void setSpeedX(double speedX) {
         this.speedX = speedX;
     }
 
-    public int getSpeedY() {
+    public double getSpeedY() {
         return speedY;
     }
 
-    public void setSpeedY(int speedY) {
+    public void setSpeedY(double speedY) {
         this.speedY = speedY;
     }
 

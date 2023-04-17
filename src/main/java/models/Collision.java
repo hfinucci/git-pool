@@ -10,6 +10,8 @@ public class Collision implements Comparable<Collision> {
 
     double time;
 
+    double timeToCollision;
+
     public Collision(Ball ball1, Ball ball2, double time) {
         this.ball1 = ball1;
         this.ball2 = ball2;
