@@ -18,7 +18,7 @@ public class Ball {
 //
 //    private Set<Collision> collisions = new TreeSet<>();
 
-    public Ball(int id, int x, int y, int radius, int speedX, int speedY, boolean isHole) {
+    public Ball(int id, double x, double y, double radius, double speedX, double speedY, boolean isHole) {
         this.id = id;
         this.x = x;
         this.y = y;
@@ -26,6 +26,16 @@ public class Ball {
         this.speedX = speedX;
         this.speedY = speedY;
         this.isHole = isHole;
+    }
+
+    public Ball(int id, double x, double y, double radius) {
+        this.id = id;
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.speedX = 0;
+        this.speedY = 0;
+        this.isHole = false;
     }
 
     public double collidesX(){
@@ -126,5 +136,14 @@ public class Ball {
 
     public void setMass(int mass) {
         this.mass = mass;
+    }
+
+    @Override
+    public String toString() {
+        return "Ball{" +
+                "id=" + id +
+                ", x=" + x +
+                ", y=" + y +
+                '}';
     }
 }
