@@ -14,12 +14,16 @@ public class FileGenerator {
     private static final double WHITE_X = 56;
     private static final double WHITE_Y = 42;
 
+    private static final double INITIAL_SPEED = 200;
+
+    private static final int MASS = 165;
+
     private static double r = REAL_RADIUS + 0.15;
 
     public static List<Ball> setupBalls() {
         List<Ball> balls = new ArrayList<>();
 
-        balls.add(new Ball(WHITE_X, WHITE_Y, REAL_RADIUS, false));
+        balls.add(new Ball(WHITE_X, WHITE_Y, REAL_RADIUS, INITIAL_SPEED, 0, MASS, false));
 
         int ballId = 0;
 
@@ -28,7 +32,7 @@ public class FileGenerator {
 //            System.out.print("Row "+rowNumber + ": ");
             double y = rowY(rowNumber);
             for(double x : rowXs(rowNumber)) {
-                Ball ball = new Ball(x, y, REAL_RADIUS, false);
+                Ball ball = new Ball(x, y, REAL_RADIUS, MASS, false);
                 balls.add(ball);
 //                System.out.print(ball + " ");
                 ballId++;
@@ -55,12 +59,12 @@ public class FileGenerator {
     }
 
     private static void addHoles(List<Ball> balls) {
-        balls.add(new Ball(0, TABLE_HEIGHT, HOLE_RADIUS, true));
-        balls.add(new Ball(TABLE_WIDTH/2, TABLE_HEIGHT, HOLE_RADIUS, true));
-        balls.add(new Ball(TABLE_WIDTH, TABLE_HEIGHT, HOLE_RADIUS, true));
-        balls.add(new Ball(0, 0, HOLE_RADIUS, true));
-        balls.add(new Ball(TABLE_WIDTH/2, 0, HOLE_RADIUS, true));
-        balls.add(new Ball(TABLE_WIDTH, 0, HOLE_RADIUS, true));
+        balls.add(new Ball(0, TABLE_HEIGHT, HOLE_RADIUS, 0, true));
+        balls.add(new Ball(TABLE_WIDTH/2, TABLE_HEIGHT, HOLE_RADIUS, 0, true));
+        balls.add(new Ball(TABLE_WIDTH, TABLE_HEIGHT, HOLE_RADIUS, 0, true));
+        balls.add(new Ball(0, 0, HOLE_RADIUS, 0, true));
+        balls.add(new Ball(TABLE_WIDTH/2, 0, HOLE_RADIUS, 0, true));
+        balls.add(new Ball(TABLE_WIDTH, 0, HOLE_RADIUS, 0, true));
     }
 
     // Returns the Y of a given row

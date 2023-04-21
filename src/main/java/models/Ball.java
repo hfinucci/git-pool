@@ -30,14 +30,15 @@ public class Ball {
         this.isHole = isHole;
     }
 
-    public Ball(double x, double y, double radius, boolean isHole) {
+    public Ball(double x, double y, double radius, int mass, boolean isHole) {
         this.id = global_id++;
         this.x = x;
         this.y = y;
         this.radius = radius;
         this.speedX = 0;
         this.speedY = 0;
-        this.isHole = isHole();
+        this.mass = mass;
+        this.isHole = isHole;
     }
 
     public double collidesX(){
@@ -64,7 +65,12 @@ public class Ball {
         setSpeedY(-getSpeedY());
     }
 
-    public void bounce(Ball b, double time) {
+    //returns true if the balls bounced, false if one of them is a hole
+    public boolean bounce(Ball b, double time) {
+
+        if(this.isHole || b.isHole)
+            return false;
+
         double jx = MathUtils.Jx(this, b)/this.getMass();
         double jy = MathUtils.Jy(this, b)/this.getMass();
 
@@ -73,7 +79,7 @@ public class Ball {
 
         b.setSpeedX(b.getSpeedX() - jx);
         b.setSpeedY(b.getSpeedY() - jy);
-
+        return true;
     }
 
 //    public int getCollisionCount() {

@@ -6,7 +6,7 @@ import models.Wall;
 public class MathUtils {
 
     public static Tuple deltaR(Ball b1, Ball b2){
-        return new Tuple(deltaX(b1.getX(), b2.getX()), deltaY(b1.getY(), b1.getY()));
+        return new Tuple(deltaX(b1.getX(), b2.getX()), deltaY(b1.getY(), b2.getY()));
     }
 
     public static Tuple deltaV(Ball b1, Ball b2){
@@ -16,20 +16,20 @@ public class MathUtils {
     public static double d(Ball b1, Ball b2){
         return Math.pow(deltaV(b1, b2).dot(deltaR(b1, b2)), 2)
                 - deltaV(b1, b2).dot(deltaV(b1, b2))
-                * (deltaR(b1, b2).dot(deltaR(b1, b2)) - Math.pow(2* b1.getRadius(), 2));
+                * (deltaR(b1, b2).dot(deltaR(b1, b2)) - Math.pow(b1.getRadius() + b2.getRadius(), 2));
     }
 
     public static double J (Ball b1, Ball b2){
         return 2 * b1.getMass() * b2.getMass() * deltaV(b1, b2).dot(deltaR(b1, b2))
-                / ((b1.getMass() + b2.getMass())* 2 * b1.getRadius());
+                / ((b1.getMass() + b2.getMass())* (b2.getRadius() + b1.getRadius()));
     }
 
     public static double Jx (Ball b1, Ball b2){
-        return J(b1, b2) * deltaX(b1.getX(), b2.getX()) / (2 * b1.getRadius());
+        return (J(b1, b2) * deltaX(b1.getX(), b2.getX())) / (b2.getRadius() + b1.getRadius());
     }
 
     public static double Jy (Ball b1, Ball b2){
-        return J(b1, b2) * deltaY(b1.getY(), b2.getY()) / (2 * b1.getRadius());
+        return J(b1, b2) * deltaY(b1.getY(), b2.getY()) / (b2.getRadius() + b1.getRadius());
     }
 
     public static double newPositionX(Ball b, double time){
@@ -43,7 +43,7 @@ public class MathUtils {
     public static double timeToCollisionTwoParticles(Ball b1, Ball b2){
         if(!collides(b1, b2))
             return -1;
-        return - (deltaR(b1, b2).dot(deltaV(b1, b2)) + Math.sqrt(d(b1, b2))) / deltaV(b1, b2).dot(deltaV(b1, b2));
+        return - (deltaV(b1, b2).dot(deltaR(b1, b2)) + Math.sqrt(d(b1, b2))) / deltaV(b1, b2).dot(deltaV(b1, b2));
     }
 
     public static double timeToCollisionParticleWallHorizontal(Ball b, Wall wall){
