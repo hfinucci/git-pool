@@ -59,6 +59,7 @@ public class EDMD {
                 Collision collision = collisions.poll();
                 if (collision == null)
                     throw new RuntimeException("No more collisions");
+
                 if ((collision.getBall1() != null && balls.get(collision.getBall1()).stream().anyMatch(x -> x > collision.getTime()))
                         || (collision.getBall2() != null && balls.get(collision.getBall2()).stream().anyMatch(x -> x > collision.getTime()))
                         || (collision.getBall1() != null && balls_out[collision.getBall1().getId()] == 1)
@@ -82,6 +83,7 @@ public class EDMD {
                     collision.getBall1().bounceX(collision.getTime());
                 else
                     bounce = collision.getBall1().bounce(collision.getBall2(), collision.getTimeToCollision());
+
 
                 if (!bounce) {
                     balls_left--;
@@ -112,7 +114,7 @@ public class EDMD {
                     }
 
                     if (collision.getBall2() != null) {
-                        balls.get(collision.getBall2()).add(collision.getTime());
+                        balls.get(collision.getBall2()).add(collision.getTimeToCollision());
                         double timeX = collision.getBall2().collidesX();
                         double timeY = collision.getBall2().collidesY();
 
