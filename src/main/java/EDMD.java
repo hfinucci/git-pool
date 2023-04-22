@@ -28,7 +28,7 @@ public class EDMD {
 
             printWriter.println(FileGenerator.WHITE_Y);
 
-            for (int i = 0; i < 200; i++) {
+            for (int i = 0; i < 1000; i++) {
 
                 if(i != 0) {
                     ballList = FileGenerator.setupBalls();
@@ -98,7 +98,7 @@ public class EDMD {
                         }
 
                         if (collision.getBall2() != null) {
-                            balls.get(collision.getBall2()).add(collision.getTime());
+                            balls.get(collision.getBall2()).add(collision.getTimeToCollision());
                             double timeX = collision.getBall2().collidesX();
                             double timeY = collision.getBall2().collidesY();
 
