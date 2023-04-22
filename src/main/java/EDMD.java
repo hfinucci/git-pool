@@ -10,9 +10,6 @@ import java.util.stream.Collectors;
 public class EDMD {
 
     private static final int CANT_BALLS = 22;
-    private static final double RADIUS = 5.7/2;
-
-
 
     public static void main(String[] args) {
         Collision imminentCollision;
@@ -50,12 +47,18 @@ public class EDMD {
             }
         }
         try {
-            FileWriter myWriter = new FileWriter("src/resources/output2.txt");
+            FileWriter myWriter = new FileWriter("src/resources/main/output.txt");
             PrintWriter printWriter = new PrintWriter(myWriter);
-            printWriter.println(CANT_BALLS - 6);
+
+            printWriter.println(CANT_BALLS);
+
             double previoustime = 0;
+            int gen = 0;
+
+            printWriter.println(printBalls(ballList, balls_out, gen, 0));
 
             while (balls_left > 0) {
+
                 Collision collision = collisions.poll();
                 if (collision == null)
                     throw new RuntimeException("No more collisions");
@@ -65,10 +68,6 @@ public class EDMD {
                         || (collision.getBall2() != null && balls_out[collision.getBall2().getId()] == 1)
                 )
                     continue;
-
-
-                if(ballList.get(14).getId() == 14 && ballList.get(14).getX() == 187.10364322763886)
-                    System.out.println("asd");
 
                 //update positions of balls
                 for (Ball b : balls.keySet()) {
@@ -135,10 +134,11 @@ public class EDMD {
                     }
                 }
 
-                printWriter.println(printBalls(new ArrayList<>(balls.keySet()), balls_out, collision));
+                gen++;
+
+                printWriter.println(printBalls(ballList, balls_out, gen, collision.getTimeToCollision()));
 
                 previoustime = collision.getTimeToCollision();
-
             }
 
             printWriter.close();
@@ -150,22 +150,21 @@ public class EDMD {
 
     }
 
-    static String printBalls(List<Ball> balls, int[] balls_out, Collision collision) {
+    static String printBalls(List<Ball> balls, int[] balls_out, int gen, double time) {
         StringBuilder sb = new StringBuilder();
-        sb.append(collision.getTimeToCollision()).append("\n");
-        sb.append(collision.getBall1()).append("\t");
-        sb.append(collision.getBall2()).append("\n");
-        for (int i = 0; i < balls.size(); i++) {
-            StringBuilder sb_line = new StringBuilder();
-            sb_line.append(balls.get(i).getId()).append("\t");
-            sb_line.append(balls.get(i).getX()).append("\t");
-            sb_line.append(balls.get(i).getY()).append("\t");
-//            sb_line.append(balls.get(i).getSpeedX()).append("\t");
-//            sb_line.append(balls.get(i).getSpeedY()).append("\t");
-            sb_line.append(balls_out[balls.get(i).getId()] == 0? "IN" : "OUT");
-            sb.append(sb_line).append("\n");
-
-
+        sb.append(gen).append("\n");
+        sb.append(time).append("\n");
+        for (Ball ball : balls) {
+            if (balls_out[ball.getId()] == 0) {
+                String sb_line = ball.getId() + "\t" +
+                        ball.getX() + "\t" +
+                        ball.getY() + "\t" +
+                        ball.getSpeedX() + "\t" +
+                        ball.getSpeedY() + "\t" +
+                        ball.getRadius() + "\t" +
+                        ball.getMass() + "\t";
+                sb.append(sb_line).append("\n");
+            }
         }
         sb.append("\n");
 

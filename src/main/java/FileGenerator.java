@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileGenerator {
-
     private static final double TABLE_WIDTH = 224;
     private static final double TABLE_HEIGHT = 112;
-    private static final double REAL_RADIUS = 2.65;
+    private static final double REAL_RADIUS = 2.85;
     private static final double HOLE_RADIUS = 2 * REAL_RADIUS;
     private static final double MAX_EPSILON = 0.015;
     private static final double MIN_EPSILON = 0.01;
@@ -18,24 +17,19 @@ public class FileGenerator {
 
     private static final int MASS = 165;
 
-    private static double r = REAL_RADIUS + 0.15;
+    private static final double r = REAL_RADIUS + 0.15;
 
     public static List<Ball> setupBalls() {
         List<Ball> balls = new ArrayList<>();
 
         balls.add(new Ball(WHITE_X, WHITE_Y, REAL_RADIUS, INITIAL_SPEED, 0, MASS, false));
 
-        int ballId = 0;
-
         // for each row
         for(int rowNumber = 0; rowNumber < 5; rowNumber++) {
-//            System.out.print("Row "+rowNumber + ": ");
             double y = rowY(rowNumber);
             for(double x : rowXs(rowNumber)) {
                 Ball ball = new Ball(x, y, REAL_RADIUS, MASS, false);
                 balls.add(ball);
-//                System.out.print(ball + " ");
-                ballId++;
             }
         }
 
