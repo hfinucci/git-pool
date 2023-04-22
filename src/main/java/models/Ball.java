@@ -20,7 +20,7 @@ public class Ball {
 //    private Set<Collision> collisions = new TreeSet<>();
 
     public Ball(double x, double y, double radius, double speedX, double speedY, int mass,  boolean isHole) {
-        this.id = global_id++;
+        this.id = global_id++ % 22;
         this.x = x;
         this.y = y;
         this.radius = radius;
@@ -31,7 +31,7 @@ public class Ball {
     }
 
     public Ball(double x, double y, double radius, int mass, boolean isHole) {
-        this.id = global_id++;
+        this.id = global_id++ % 22;
         this.x = x;
         this.y = y;
         this.radius = radius;
