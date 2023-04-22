@@ -116,11 +116,11 @@ public class EDMD {
                             }
                         }
                     }
-
+                    printWriter.print(collision.getTimeToCollision() - previousTime + " ");
                     previousTime = collision.getTimeToCollision();
                 }
 
-                printWriter.println(previousTime);
+                printWriter.println();
             }
 
             printWriter.close();
