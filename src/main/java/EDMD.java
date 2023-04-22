@@ -28,7 +28,7 @@ public class EDMD {
 
             printWriter.println(FileGenerator.WHITE_Y);
 
-            for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < 200; i++) {
 
                 if(i != 0) {
                     ballList = FileGenerator.setupBalls();
