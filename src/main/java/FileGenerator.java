@@ -17,7 +17,7 @@ public class FileGenerator {
 
     private static final int MASS = 165;
 
-    private static final double r = REAL_RADIUS + 0.15;
+    private static final double r = REAL_RADIUS + 0.015;
 
     public static List<Ball> setupBalls() {
         List<Ball> balls = new ArrayList<>();
@@ -34,14 +34,14 @@ public class FileGenerator {
         }
 
         for (Ball ball : balls) {
-            double aux = ball.getX();
-            ball.setX(ball.getY());
-            ball.setY(aux);
-            double random = Math.random();
-            double randomX = -MIN_EPSILON + random * (MAX_EPSILON + MIN_EPSILON);
-            double randomY = -MIN_EPSILON + random * (MAX_EPSILON + MIN_EPSILON);
-
             if (ball.getId() != 0) {
+                double aux = ball.getX();
+                ball.setX(ball.getY());
+                ball.setY(aux);
+                double random = Math.random();
+                double randomX = -MIN_EPSILON + random * (MAX_EPSILON + MIN_EPSILON);
+                double randomY = -MIN_EPSILON + random * (MAX_EPSILON + MIN_EPSILON);
+
                 ball.setX(ball.getX() + randomX + 168);
                 ball.setY(ball.getY() + randomY + 56);
             }

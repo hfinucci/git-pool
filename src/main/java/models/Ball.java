@@ -82,10 +82,6 @@ public class Ball {
         return true;
     }
 
-//    public int getCollisionCount() {
-//        return collisions.size();
-//    }
-
     public double getX() {
         return x;
     }

@@ -12,18 +12,14 @@ public class EDMD {
     private static final int CANT_BALLS = 22;
 
     public static void main(String[] args) {
-        Collision imminentCollision;
-//        List<Ball> balls = new ArrayList<>(CANT_BALLS);
         List<Ball> ballList = FileGenerator.setupBalls();
         Map<Ball, List<Double>> balls = new HashMap<>(CANT_BALLS);
-
-//        balls.put(new Ball(56, 56, RADIUS, 200, 0, 165, false), new ArrayList<>());
-//        balls.put(new Ball(66, 56, RADIUS, 0, 0, 165, false), new ArrayList<>());
 
         int [] balls_out = new int[CANT_BALLS];
         for (Ball ball : ballList){
             balls.put(ball, new ArrayList<>());
         }
+
         //PriorityQueue for the collisions
         PriorityQueue<Collision> collisions = new PriorityQueue<>();
         int balls_left = CANT_BALLS - 6;
@@ -46,8 +42,9 @@ public class EDMD {
                 }
             }
         }
+
         try {
-            FileWriter myWriter = new FileWriter("src/resources/main/output.txt");
+            FileWriter myWriter = new FileWriter("src/main/resources/output.txt");
             PrintWriter printWriter = new PrintWriter(myWriter);
 
             printWriter.println(CANT_BALLS);
