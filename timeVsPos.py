@@ -10,7 +10,7 @@ for i in range(1, len(sys.argv)):
     velocity = open(sys.argv[i], "r")
     x.append(float(next(velocity)))
     for line in velocity:
-        if(float(line) < 10000):
+        if(float(line) < 1000):
             iter.append(float(line))
     print(len(iter))
     y.append(np.mean(iter))

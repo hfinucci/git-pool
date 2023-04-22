@@ -23,12 +23,12 @@ public class EDMD {
         int balls_left = init(ballList, balls, collisions);
 
         try {
-            FileWriter myWriter = new FileWriter("src/main/resources/times_54.txt");
+            FileWriter myWriter = new FileWriter("src/main/resources/times_" + FileGenerator.WHITE_Y + ".txt");
             PrintWriter printWriter = new PrintWriter(myWriter);
 
             printWriter.println(FileGenerator.WHITE_Y);
 
-            for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < 200; i++) {
 
                 if(i != 0) {
                     ballList = FileGenerator.setupBalls();

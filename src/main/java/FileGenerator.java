@@ -8,16 +8,16 @@ public class FileGenerator {
     private static final double TABLE_HEIGHT = 112;
     private static final double REAL_RADIUS = 2.85;
     private static final double HOLE_RADIUS = 2 * REAL_RADIUS;
-    private static final double MAX_EPSILON = 0.015;
-    private static final double MIN_EPSILON = 0.01;
+    private static final double MAX_EPSILON = 0.01;
+    private static final double MIN_EPSILON = 0.005;
     private static final double WHITE_X = 56;
-    public static final double WHITE_Y = 54;
+    public static final double WHITE_Y = 56;
 
     private static final double INITIAL_SPEED = 200;
 
     private static final int MASS = 165;
 
-    private static final double r = REAL_RADIUS + 0.015;
+    private static final double r = REAL_RADIUS + 0.01;
 
     public static List<Ball> setupBalls() {
         List<Ball> balls = new ArrayList<>();
