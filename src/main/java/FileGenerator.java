@@ -11,7 +11,7 @@ public class FileGenerator {
     private static final double MAX_EPSILON = 0.015;
     private static final double MIN_EPSILON = 0.01;
     private static final double WHITE_X = 56;
-    private static final double WHITE_Y = 42;
+    private static final double WHITE_Y = 56;
 
     private static final double INITIAL_SPEED = 200;
 
@@ -42,8 +42,8 @@ public class FileGenerator {
                 double randomX = -MIN_EPSILON + random * (MAX_EPSILON + MIN_EPSILON);
                 double randomY = -MIN_EPSILON + random * (MAX_EPSILON + MIN_EPSILON);
 
-                ball.setX(ball.getX() + randomX + 168);
-                ball.setY(ball.getY() + randomY + 56);
+                ball.setX(ball.getX() + 168);
+                ball.setY(ball.getY() + 56);
             }
         }
 

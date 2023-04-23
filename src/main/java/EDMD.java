@@ -44,15 +44,13 @@ public class EDMD {
         }
 
         try {
-            FileWriter myWriter = new FileWriter("src/main/resources/output.txt");
+            FileWriter myWriter = new FileWriter("src/main/resources/output_double_1.txt");
             PrintWriter printWriter = new PrintWriter(myWriter);
 
             printWriter.println(CANT_BALLS);
 
             double previoustime = 0;
             int gen = 0;
-
-            printWriter.println(printBalls(ballList, balls_out, gen, 0));
 
             while (balls_left > 0) {
 
@@ -87,10 +85,14 @@ public class EDMD {
 
                 if (!bounce) {
                     balls_left--;
-                    if (!collision.getBall1().isHole())
+                    if (!collision.getBall1().isHole()) {
                         balls_out[collision.getBall1().getId()] = 1;
-                    if (!collision.getBall2().isHole())
+                        printWriter.println(printBallThatLeft(collision.getBall1(), collision.getBall2(), gen, collision.getTimeToCollision()));
+                    }
+                    if (!collision.getBall2().isHole()) {
                         balls_out[collision.getBall2().getId()] = 1;
+                        printWriter.println(printBallThatLeft(collision.getBall2(), collision.getBall1(), gen, collision.getTimeToCollision()));
+                    }
                 } else {
                     //recalculate collisions for both balls and the rest
                     if (collision.getBall1() != null) {
@@ -134,12 +136,9 @@ public class EDMD {
                 }
 
                 gen++;
-
-                printWriter.println(printBalls(ballList, balls_out, gen, collision.getTimeToCollision()));
-
                 previoustime = collision.getTimeToCollision();
             }
-
+            printWriter.println(previoustime);
             printWriter.close();
             myWriter.close();
 
@@ -147,6 +146,22 @@ public class EDMD {
             e.printStackTrace();
         }
 
+    }
+
+    private static String printBallThatLeft(Ball ball, Ball hole, int gen, double time) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(gen).append("\n");
+        sb.append(time).append("\n");
+        sb.append(hole).append("\n");
+        String sb_line = ball.getId() + "\t" +
+                ball.getX() + "\t" +
+                ball.getY() + "\t" +
+                ball.getSpeedX() + "\t" +
+                ball.getSpeedY() + "\t";
+        sb.append(sb_line).append("\n");
+        sb.append("\n");
+
+        return sb.toString();
     }
 
     static String printBalls(List<Ball> balls, int[] balls_out, int gen, double time) {
