@@ -23,7 +23,7 @@ public class EDMD {
         int balls_left = init(ballList, balls, collisions);
 
         try {
-            FileWriter myWriter = new FileWriter("src/main/resources/times_" + FileGenerator.WHITE_Y + ".txt");
+            FileWriter myWriter = new FileWriter("src/main/resources/times_events_" + FileGenerator.WHITE_Y + ".txt");
             PrintWriter printWriter = new PrintWriter(myWriter);
 
             printWriter.println(FileGenerator.WHITE_Y);
