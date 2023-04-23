@@ -13,7 +13,7 @@ public class EDMD {
 
     public static void main(String[] args) {
         List<Ball> ballList = FileGenerator.setupBalls();
-        Map<Ball, List<Double>> balls = new HashMap<>(CANT_BALLS);
+        Map<Ball, List<Float>> balls = new HashMap<>(CANT_BALLS);
 
         int [] balls_out = new int[CANT_BALLS];
         for (Ball ball : ballList){
@@ -26,8 +26,8 @@ public class EDMD {
 
         //init collisions
         for (Ball b1 : balls.keySet()) {
-            double timeX = b1.collidesX();
-            double timeY = b1.collidesY();
+            float timeX = b1.collidesX();
+            float timeY = b1.collidesY();
 
             if(timeX >= 0)
                 collisions.add(new Collision(b1, null, timeX, 0));
@@ -36,7 +36,7 @@ public class EDMD {
 
             for (Ball b2 : balls.keySet()) {
                 if(b1.getId() < b2.getId()) {
-                    double time = b1.collides(b2);
+                    float time = b1.collides(b2);
                     if(time >= 0)
                         collisions.add(new Collision(b1, b2, time, 0));
                 }
@@ -44,12 +44,12 @@ public class EDMD {
         }
 
         try {
-            FileWriter myWriter = new FileWriter("src/main/resources/output_double_1.txt");
+            FileWriter myWriter = new FileWriter("src/main/resources/output_float_2.txt");
             PrintWriter printWriter = new PrintWriter(myWriter);
 
             printWriter.println(CANT_BALLS);
 
-            double previoustime = 0;
+            float previoustime = 0;
             int gen = 0;
 
             while (balls_left > 0) {
@@ -97,8 +97,8 @@ public class EDMD {
                     //recalculate collisions for both balls and the rest
                     if (collision.getBall1() != null) {
                         balls.get(collision.getBall1()).add(collision.getTimeToCollision());
-                        double timeX = collision.getBall1().collidesX();
-                        double timeY = collision.getBall1().collidesY();
+                        float timeX = collision.getBall1().collidesX();
+                        float timeY = collision.getBall1().collidesY();
 
                         if (timeX >= 0)
                             collisions.add(new Collision(collision.getBall1(), null, collision.getTimeToCollision() + timeX, collision.getTimeToCollision()));
@@ -108,7 +108,7 @@ public class EDMD {
 
                         for (Ball b : balls.keySet()) {
                             if (b.getId() != collision.getBall1().getId()  && balls_out[b.getId()] == 0) {
-                                double time = collision.getBall1().collides(b);
+                                float time = collision.getBall1().collides(b);
                                 if (time >= 0)
                                     collisions.add(new Collision(collision.getBall1(), b, collision.getTimeToCollision() + time, collision.getTimeToCollision()));
                             }
@@ -117,8 +117,8 @@ public class EDMD {
 
                     if (collision.getBall2() != null) {
                         balls.get(collision.getBall2()).add(collision.getTimeToCollision());
-                        double timeX = collision.getBall2().collidesX();
-                        double timeY = collision.getBall2().collidesY();
+                        float timeX = collision.getBall2().collidesX();
+                        float timeY = collision.getBall2().collidesY();
 
                         if (timeX >= 0)
                             collisions.add(new Collision(collision.getBall2(), null, collision.getTimeToCollision() + timeX, collision.getTimeToCollision()));
@@ -127,7 +127,7 @@ public class EDMD {
 
                         for (Ball b : balls.keySet()) {
                             if (b.getId() != collision.getBall2().getId() && balls_out[b.getId()] == 0){
-                                double time = collision.getBall2().collides(b);
+                                float time = collision.getBall2().collides(b);
                                 if (time >= 0)
                                     collisions.add(new Collision(collision.getBall2(), b, collision.getTimeToCollision() + time, collision.getTimeToCollision()));
                             }
@@ -148,7 +148,7 @@ public class EDMD {
 
     }
 
-    private static String printBallThatLeft(Ball ball, Ball hole, int gen, double time) {
+    private static String printBallThatLeft(Ball ball, Ball hole, int gen, float time) {
         StringBuilder sb = new StringBuilder();
         sb.append(gen).append("\n");
         sb.append(time).append("\n");
@@ -164,7 +164,7 @@ public class EDMD {
         return sb.toString();
     }
 
-    static String printBalls(List<Ball> balls, int[] balls_out, int gen, double time) {
+    static String printBalls(List<Ball> balls, int[] balls_out, int gen, float time) {
         StringBuilder sb = new StringBuilder();
         sb.append(gen).append("\n");
         sb.append(time).append("\n");

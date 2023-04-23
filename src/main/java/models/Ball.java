@@ -9,17 +9,17 @@ public class Ball {
 
     private static int global_id = 0;
     private int id;
-    private double x;
-    private double y;
-    private double radius;
+    private float x;
+    private float y;
+    private float radius;
     private int mass;
-    private double speedX;
-    private double speedY;
+    private float speedX;
+    private float speedY;
     private boolean isHole;
 //
 //    private Set<Collision> collisions = new TreeSet<>();
 
-    public Ball(double x, double y, double radius, double speedX, double speedY, int mass,  boolean isHole) {
+    public Ball(float x, float y, float radius, float speedX, float speedY, int mass,  boolean isHole) {
         this.id = global_id++;
         this.x = x;
         this.y = y;
@@ -30,7 +30,7 @@ public class Ball {
         this.isHole = isHole;
     }
 
-    public Ball(double x, double y, double radius, int mass, boolean isHole) {
+    public Ball(float x, float y, float radius, int mass, boolean isHole) {
         this.id = global_id++;
         this.x = x;
         this.y = y;
@@ -41,38 +41,38 @@ public class Ball {
         this.isHole = isHole;
     }
 
-    public double collidesX(){
-        double timeLeft = MathUtils.timeToCollisionParticleWallVertical(this, Wall.LEFT);
-        double timeRight = MathUtils.timeToCollisionParticleWallVertical(this, Wall.RIGHT);
+    public float collidesX(){
+        float timeLeft = MathUtils.timeToCollisionParticleWallVertical(this, Wall.LEFT);
+        float timeRight = MathUtils.timeToCollisionParticleWallVertical(this, Wall.RIGHT);
         return timeLeft >= 0? timeLeft: timeRight >= 0? timeRight: -1;
     }
 
-    public double collidesY(){
-        double timeTop = MathUtils.timeToCollisionParticleWallHorizontal(this, Wall.TOP);
-        double timeBottom = MathUtils.timeToCollisionParticleWallHorizontal(this, Wall.BOTTOM);
+    public float collidesY(){
+        float timeTop = MathUtils.timeToCollisionParticleWallHorizontal(this, Wall.TOP);
+        float timeBottom = MathUtils.timeToCollisionParticleWallHorizontal(this, Wall.BOTTOM);
         return timeTop >= 0? timeTop: timeBottom >= 0? timeBottom: -1;
     }
 
-    public double collides(Ball b) {
+    public float collides(Ball b) {
         return MathUtils.timeToCollisionTwoParticles(this, b);
     }
 
-    public void bounceX(double time){
+    public void bounceX(float time){
         setSpeedX(-getSpeedX());
     }
 
-    public void bounceY(double time) {
+    public void bounceY(float time) {
         setSpeedY(-getSpeedY());
     }
 
     //returns true if the balls bounced, false if one of them is a hole
-    public boolean bounce(Ball b, double time) {
+    public boolean bounce(Ball b, float time) {
 
         if(this.isHole || b.isHole)
             return false;
 
-        double jx = MathUtils.Jx(this, b)/this.getMass();
-        double jy = MathUtils.Jy(this, b)/this.getMass();
+        float jx = MathUtils.Jx(this, b)/this.getMass();
+        float jy = MathUtils.Jy(this, b)/this.getMass();
 
         setSpeedX(getSpeedX() + jx);
         setSpeedY(getSpeedY() + jy);
@@ -82,43 +82,43 @@ public class Ball {
         return true;
     }
 
-    public double getX() {
+    public float getX() {
         return x;
     }
 
-    public void setX(double x) {
+    public void setX(float x) {
         this.x = x;
     }
 
-    public double getY() {
+    public float getY() {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(float y) {
         this.y = y;
     }
 
-    public double getRadius() {
+    public float getRadius() {
         return radius;
     }
 
-    public void setRadius(double radius) {
+    public void setRadius(float radius) {
         this.radius = radius;
     }
 
-    public double getSpeedX() {
+    public float getSpeedX() {
         return speedX;
     }
 
-    public void setSpeedX(double speedX) {
+    public void setSpeedX(float speedX) {
         this.speedX = speedX;
     }
 
-    public double getSpeedY() {
+    public float getSpeedY() {
         return speedY;
     }
 
-    public void setSpeedY(double speedY) {
+    public void setSpeedY(float speedY) {
         this.speedY = speedY;
     }
 

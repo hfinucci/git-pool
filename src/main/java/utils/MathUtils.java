@@ -13,40 +13,40 @@ public class MathUtils {
         return new Tuple(deltaVx(b1.getSpeedX(), b2.getSpeedX()), deltaVy(b1.getSpeedY(), b2.getSpeedY()));
     }
 
-    public static double d(Ball b1, Ball b2){
-        return Math.pow(deltaV(b1, b2).dot(deltaR(b1, b2)), 2)
+    public static float d(Ball b1, Ball b2){
+        return (deltaV(b1, b2).dot(deltaR(b1, b2)) * deltaV(b1, b2).dot(deltaR(b1, b2)))
                 - deltaV(b1, b2).dot(deltaV(b1, b2))
-                * (deltaR(b1, b2).dot(deltaR(b1, b2)) - Math.pow(b1.getRadius() + b2.getRadius(), 2));
+                * (deltaR(b1, b2).dot(deltaR(b1, b2)) - ((b1.getRadius() + b2.getRadius()) * (b1.getRadius() + b2.getRadius())));
     }
 
-    public static double J (Ball b1, Ball b2){
+    public static float J (Ball b1, Ball b2){
         return 2 * b1.getMass() * b2.getMass() * deltaV(b1, b2).dot(deltaR(b1, b2))
                 / ((b1.getMass() + b2.getMass())* (b2.getRadius() + b1.getRadius()));
     }
 
-    public static double Jx (Ball b1, Ball b2){
+    public static float Jx (Ball b1, Ball b2){
         return (J(b1, b2) * deltaX(b1.getX(), b2.getX())) / (b2.getRadius() + b1.getRadius());
     }
 
-    public static double Jy (Ball b1, Ball b2){
+    public static float Jy (Ball b1, Ball b2){
         return J(b1, b2) * deltaY(b1.getY(), b2.getY()) / (b2.getRadius() + b1.getRadius());
     }
 
-    public static double newPositionX(Ball b, double time){
+    public static float newPositionX(Ball b, float time){
         return b.getX() + b.getSpeedX() * time;
     }
 
-    public static double newPositionY(Ball b, double time){
+    public static float newPositionY(Ball b, float time){
         return b.getY() + b.getSpeedY() * time;
     }
 
-    public static double timeToCollisionTwoParticles(Ball b1, Ball b2){
+    public static float timeToCollisionTwoParticles(Ball b1, Ball b2){
         if(!collides(b1, b2))
             return -1;
-        return - (deltaV(b1, b2).dot(deltaR(b1, b2)) + Math.sqrt(d(b1, b2))) / deltaV(b1, b2).dot(deltaV(b1, b2));
+        return - (deltaV(b1, b2).dot(deltaR(b1, b2)) + (float) Math.sqrt(d(b1, b2))) / deltaV(b1, b2).dot(deltaV(b1, b2));
     }
 
-    public static double timeToCollisionParticleWallHorizontal(Ball b, Wall wall){
+    public static float timeToCollisionParticleWallHorizontal(Ball b, Wall wall){
         if(b.getSpeedY() == 0)
             return -1;
         else if(b.getSpeedY() > 0)
@@ -55,7 +55,7 @@ public class MathUtils {
             return (b.getRadius() - b.getY()) / b.getSpeedY();
     }
 
-    public static double timeToCollisionParticleWallVertical(Ball b, Wall wall){
+    public static float timeToCollisionParticleWallVertical(Ball b, Wall wall){
         if(b.getSpeedX() == 0)
             return -1;
         else if(b.getSpeedX() > 0)
@@ -67,48 +67,48 @@ public class MathUtils {
     public static boolean collides(Ball b1, Ball b2){
         return d(b1, b2) >= 0 || deltaR(b1, b2).dot(deltaV(b1, b2)) < 0;
     }
-    public static double deltaX(double x1, double x2){
+    public static float deltaX(float x1, float x2){
         return x2 - x1;
     }
 
-    public static double deltaY(double y1, double y2){
+    public static float deltaY(float y1, float y2){
         return y2 - y1;
     }
 
-    public static double deltaVx(double vx1, double vx2){
+    public static float deltaVx(float vx1, float vx2){
         return vx2 - vx1;
     }
 
-    public static double deltaVy(double vy1, double vy2){
+    public static float deltaVy(float vy1, float vy2){
         return vy2 - vy1;
     }
 
     static class Tuple {
-        double a;
-        double b;
+        float a;
+        float b;
 
-        public Tuple(double a, double b){
+        public Tuple(float a, float b){
             this.a = a;
             this.b = b;
         }
 
-        public double getA() {
+        public float getA() {
             return a;
         }
 
-        public void setA(double a) {
+        public void setA(float a) {
             this.a = a;
         }
 
-        public double getB() {
+        public float getB() {
             return b;
         }
 
-        public void setB(double b) {
+        public void setB(float b) {
             this.b = b;
         }
 
-        public double dot(Tuple t){
+        public float dot(Tuple t){
             return a * t.getA() + b * t.getB();
         }
     }

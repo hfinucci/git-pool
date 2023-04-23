@@ -9,18 +9,18 @@ public class Collision implements Comparable<Collision> {
     Ball ball2;
 
 
-    double time;
+    float time;
 
-    double timeToCollision;
+    float timeToCollision;
 
-    public Collision(Ball ball1, Ball ball2, double timeToCollision, double time) {
+    public Collision(Ball ball1, Ball ball2, float timeToCollision, float time) {
         this.ball1 = ball1;
         this.ball2 = ball2;
         this.time = time;
         this.timeToCollision = timeToCollision;
     }
 
-    public boolean wasSuperveningEvent(Map<Ball, List<Double>> balls, double currentTime){
+    public boolean wasSuperveningEvent(Map<Ball, List<Float>> balls, float currentTime){
         return false;
     }
 
@@ -41,19 +41,19 @@ public class Collision implements Comparable<Collision> {
     }
 
 
-    public double getTime() {
+    public float getTime() {
         return time;
     }
 
-    public void setTime(double time) {
+    public void setTime(float time) {
         this.time = time;
     }
 
-    public double getTimeToCollision() {
+    public float getTimeToCollision() {
         return timeToCollision;
     }
 
-    public void setTimeToCollision(double timeToCollision) {
+    public void setTimeToCollision(float timeToCollision) {
         this.timeToCollision = timeToCollision;
     }
 

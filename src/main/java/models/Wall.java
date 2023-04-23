@@ -1,32 +1,32 @@
 package models;
 
 public enum Wall {
-    TOP (null, 112),
-    BOTTOM (null, 0),
-    LEFT (0, null),
-    RIGHT(224, null);
+    TOP (null, 112f),
+    BOTTOM (null, 0f),
+    LEFT (0f, null),
+    RIGHT(224f, null);
 
-    private Integer x;
-    private Integer y;
+    private Float x;
+    private Float y;
 
-    Wall(Integer x, Integer y){
+    Wall(Float x, Float y){
         this.x = x;
         this.y = y;
     }
 
-    public Integer getX() {
+    public Float getX() {
         return x;
     }
 
-    public void setX(Integer x) {
+    public void setX(Float x) {
         this.x = x;
     }
 
-    public Integer getY() {
+    public Float getY() {
         return y;
     }
 
-    public void setY(Integer y) {
+    public void setY(Float y) {
         this.y = y;
     }
 }
